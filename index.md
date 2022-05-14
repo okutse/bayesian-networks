@@ -35,8 +35,9 @@ link-citations: yes
 
 
 
+
 <center>
-**Reading Time: NA minute(s)**
+**Reading Time: 18 minute(s)**
 </center>
 <br>
 
