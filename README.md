@@ -546,37 +546,18 @@ OutTab %>% kable(format = "html", caption = "Artificial Neural Network Model Com
   <tr>
    <td style="text-align:left;">  </td>
    <td style="text-align:left;"> Error </td>
-   <td style="text-align:left;">  </td>
   </tr>
   <tr>
    <td style="text-align:left;"> NUTS (no evidence) </td>
    <td style="text-align:left;"> 1.00E-04 </td>
-   <td style="text-align:left;">  </td>
   </tr>
   <tr>
    <td style="text-align:left;"> NUTS (with evidence) </td>
    <td style="text-align:left;"> 7.97E-07 </td>
-   <td style="text-align:left;">  </td>
   </tr>
   <tr>
    <td style="text-align:left;"> NNET </td>
    <td style="text-align:left;"> 7.97E-05 </td>
-   <td style="text-align:left;">  </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;">  </td>
-   <td style="text-align:left;">  </td>
-   <td style="text-align:left;">  </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;">  </td>
-   <td style="text-align:left;">  </td>
-   <td style="text-align:left;">  </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;">  </td>
-   <td style="text-align:left;">  </td>
-   <td style="text-align:left;">  </td>
   </tr>
 </tbody>
 </table>
