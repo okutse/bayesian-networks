@@ -14,12 +14,12 @@
 
 <title>Bayesian Learning Artificial Neural Networks for Modeling Survival Data</title>
 
-<script src="README_files/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="index_files/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="README_files/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
-<script src="README_files/bootstrap-3.3.5/js/bootstrap.min.js"></script>
-<script src="README_files/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
-<script src="README_files/bootstrap-3.3.5/shim/respond.min.js"></script>
+<link href="index_files/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="index_files/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="index_files/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="index_files/bootstrap-3.3.5/shim/respond.min.js"></script>
 <style>h1 {font-size: 34px;}
        h1.title {font-size: 38px;}
        h2 {font-size: 30px;}
@@ -29,10 +29,10 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="README_files/navigation-1.1/tabsets.js"></script>
-<script src="README_files/navigation-1.1/codefolding.js"></script>
-<script src="README_files/kePrint-0.0.1/kePrint.js"></script>
-<link href="README_files/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<script src="index_files/navigation-1.1/tabsets.js"></script>
+<script src="index_files/navigation-1.1/codefolding.js"></script>
+<script src="index_files/kePrint-0.0.1/kePrint.js"></script>
+<link href="index_files/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -303,7 +303,7 @@ pre code {
 
 
 <center>
-<strong>Reading Time: 17 minute(s)</strong>
+<strong>Reading Time: NA minute(s)</strong>
 </center>
 <p><br></p>
 <figure>
@@ -888,7 +888,7 @@ CORIN
 </table>
 <p>In Figure <a href="#fig:mean-difference">5.1</a> we visualize the differentially expressed genes in this sample using a mean-difference plot highlighting the genes depending on whether they were significantly up or down regulated.</p>
 <div class="figure"><span style="display:block;" id="fig:mean-difference"></span>
-<img src="README_files/figure-html/mean-difference-1.png" alt="A mean-difference plot showing the statistically significantly up and down regulated genes in primary bladder cancer relative to normal bladder cells."  />
+<img src="index_files/figure-html/mean-difference-1.png" alt="A mean-difference plot showing the statistically significantly up and down regulated genes in primary bladder cancer relative to normal bladder cells."  />
 <p class="caption">
 Figure 5.1: A mean-difference plot showing the statistically significantly up and down regulated genes in primary bladder cancer relative to normal bladder cells.
 </p>
@@ -897,7 +897,7 @@ Figure 5.1: A mean-difference plot showing the statistically significantly up an
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#barplots of the similar results showing only 20 enrichment categories</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(edo, <span class="at">showCategory=</span><span class="dv">10</span>, <span class="at">cex.names=</span><span class="dv">3</span>)</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:enrich"></span>
-<img src="README_files/figure-html/enrich-1.png" alt="Sample Enrichment analysis results using the Gene Ontology (GO) enrichment analysis."  />
+<img src="index_files/figure-html/enrich-1.png" alt="Sample Enrichment analysis results using the Gene Ontology (GO) enrichment analysis."  />
 <p class="caption">
 Figure 5.2: Sample Enrichment analysis results using the Gene Ontology (GO) enrichment analysis.
 </p>
@@ -985,8 +985,6 @@ Figure 5.2: Sample Enrichment analysis results using the Gene Ontology (GO) enri
 <td style="text-align:left;">
 Error
 </td>
-<td style="text-align:left;">
-</td>
 </tr>
 <tr>
 <td style="text-align:left;">
@@ -994,8 +992,6 @@ NUTS (no evidence)
 </td>
 <td style="text-align:left;">
 1.00E-04
-</td>
-<td style="text-align:left;">
 </td>
 </tr>
 <tr>
@@ -1005,8 +1001,6 @@ NUTS (with evidence)
 <td style="text-align:left;">
 7.97E-07
 </td>
-<td style="text-align:left;">
-</td>
 </tr>
 <tr>
 <td style="text-align:left;">
@@ -1014,32 +1008,6 @@ NNET
 </td>
 <td style="text-align:left;">
 7.97E-05
-</td>
-<td style="text-align:left;">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
 </td>
 </tr>
 </tbody>
@@ -1054,8 +1022,12 @@ NNET
 <h1><span class="header-section-number">8</span> Python extension</h1>
 <p>In an extension to this post, we show an implementation of Bayesian learning for neural networks using a simulated dataset in Python is available. The method includes the estimation of the uncertatinty associated with survival estimates which is of great value in the context of predictive modeling. The post can be found <a href="https://okutse.github.io">here</a>. After modeling and identifying the genes that impact survival in primary bladder cancer patients, the genes can then be annotated and encoded based on their enrichment level as either high, medium, or low and survival curves plotted to understand the effect these varied expression profiles have on survival.</p>
 </div>
-<div id="references" class="section level1" number="9">
-<h1><span class="header-section-number">9</span> References</h1>
+<div id="data-availability-and-analysis-scripts" class="section level1" number="9">
+<h1><span class="header-section-number">9</span> Data availability and analysis scripts</h1>
+<p>All data used in this extension is available online. The cleaned data analysis files used in this post, including the <a href="">R Script</a> generated from the <code>.Rmd</code> file using <code>knitr::purl()</code> can be found at our Github repository.<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a></p>
+</div>
+<div id="references" class="section level1" number="10">
+<h1><span class="header-section-number">10</span> References</h1>
 <div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-burden2008bayesian" class="csl-entry">
 Burden, Frank, and Dave Winkler. 2008. <span>“Bayesian Regularization of Neural Networks.”</span> <em>Artificial Neural Networks</em>, 23–42.
@@ -1094,6 +1066,7 @@ Sharaf, Taysseer, Theren Williams, Abdallah Chehade, and Keshav Pokhrel. 2020. <
 <li id="fn3"><p> formula defined here<a href="#fnref3" class="footnote-back">↩︎</a></p></li>
 <li id="fn4"><p><a href="https://www.bioconductor.org/install/" class="uri">https://www.bioconductor.org/install/</a><a href="#fnref4" class="footnote-back">↩︎</a></p></li>
 <li id="fn5"><p><a href="https://rdrr.io/github/BLNNdevs/BLNN/man/BLNN_Train.html" class="uri">https://rdrr.io/github/BLNNdevs/BLNN/man/BLNN_Train.html</a><a href="#fnref5" class="footnote-back">↩︎</a></p></li>
+<li id="fn6"><p><a href="#fnref6" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
 
