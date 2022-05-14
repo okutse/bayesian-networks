@@ -1,7 +1,7 @@
 ---
 title: "Bayesian Learning Artificial Neural Networks for Modeling Survival Data"
 author: "Amos Okutse, Naomi Lee"
-date: "13 May, 2022"
+date: "14 May, 2022"
 output:
   bookdown::html_document2:
   #rmdformats::readthedown:

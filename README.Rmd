@@ -4,6 +4,7 @@ author: "Amos Okutse, Naomi Lee"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
   bookdown::html_document2:
+  bookdown::pdf_document2:
   #rmdformats::readthedown:
     mathjax: https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML.js
     self_contained: no
