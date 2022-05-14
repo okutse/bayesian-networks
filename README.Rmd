@@ -4,7 +4,7 @@ author: "Amos Okutse, Naomi Lee"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
   bookdown::html_document2:
-  bookdown::pdf_document2:
+  #bookdown::pdf_document2:
   #rmdformats::readthedown:
     mathjax: https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML.js
     self_contained: no
@@ -75,12 +75,9 @@ bytes <- file.size("README.Rmd")
 words <- bytes/10
 minutes <- words/200
 ```
-<br>
-<br>
 <center>
-**Approximate Reading Time: `r round(minutes)` minute(s)**
+**Reading Time: `r round(minutes)` minute(s)**
 </center>
-<br>
 <br>
 
 <figure>
@@ -111,7 +108,7 @@ With all the hype linked to this deep learning method in the recent past [@hasti
 The idea is to take in simple functions as inputs and then allow these functions to build upon each other. The models are flexible enough to learn non-linear relationships rather than prescribing them as is in kernels or transformations. A neural network takes in an input vector of p features $X=(X_1, X_2, \cdots , X_p)$ and then creates a non-linear function to forecast an outcome variable, $Y$. While varied statistical models such as Bayesian additive regression trees (BART) and random forests exist, neural networks have a structure that contrasts them from these other methods. Figure 1 shows a feed-forward neural network with an input layer consisting of 4 input features, $X=(X_1, \cdots, X_4)$, a single hidden layer with 5 nodes $A_1, \cdots, A_5$, a non-linear activation function, $f(X)$ (output layer), and the desired outcome, $Y.$
 
 <figure>
-    <img src="basic_neural_1.jpg" style="width:100%">
+    <img src="basic_neural_1.jpg" style="width:50%">
     <figcaption>Image Source: Hastie et al. 2009</figcaption>
 </figure>
 
@@ -126,10 +123,8 @@ In the first modeling step, the $K$ activations in the hidden layer are computed
 
 \begin{align}
 A_k = h_k(X) &= g(w_{k0} + \sum_{j=1}^{p}w_{kj}X_j)\\
-& =~~\textrm {where} ~g(z) = \textrm{non-linear activation function which has to be specified.}
 \end{align}
-
-The $K$ activation functions from the hidden layer then feed their outputs into the output layer so that we have:
+where $g(z)$ is the activation function specified. The $K$ activation functions from the hidden layer then feed their outputs into the output layer so that we have:
 
 \begin{align}
  f(X) & = \beta_0 + \sum_{k=1}^{K} \beta_k A_k
