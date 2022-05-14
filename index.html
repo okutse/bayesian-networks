@@ -1016,7 +1016,7 @@ NNET
 <div id="discussion-and-conclusion" class="section level1" number="7">
 <h1><span class="header-section-number">7</span> Discussion and Conclusion</h1>
 <p>In this extension post, we have explored Bayesian learning in the context of artificial neural networks for modeling survival data, using micro array gene expression data for our case. In particular, we have presented the main ideas behind why artificial neural networks using Bayesian learning present an alternative to modeling survival outcomes given the complexity presented by censored data in survival modeling. The post has presented a simplistic introduction to neural networks, focusing predominantly on the feed-forward neural network which is later implemented on the application problem. We later shift to the neural network approach to modeling survival data where we discuss the Cox PH-based ANNs and how this model has been improved to learn hyper-parameters from a posterior distribution derived from prior information (evidence) and the data.</p>
-<p>For brevity, and purposes of demonstration, we present the errors associated with each models trained in this post and show that using evidence results in a reduction in the total error. However, a major issue that we encountered during the course of training these models was the high computational time it took to run the models, even with parallel processing. While the NUTs algorithm and the HMC algorithm employed by the BLNN package are promising, the sampling methods take an exorbitant amount of time to run, especially when the idea is to sample the values of the hyperparameters using historical data (or evidence). <span class="citation"><a href="#ref-sharaf2020blnn" role="doc-biblioref">Sharaf et al.</a> (<a href="#ref-sharaf2020blnn" role="doc-biblioref">2020</a>)</span> note that “Bayesian learning for ANN requires longer learning time when compared with conventional algorithms such as BFGS or gradient descent” something that holds true based on our implementation in this post.</p>
+<p>For brevity, and purposes of demonstration, we present the errors associated with each models trained in this post and show that using evidence results in a reduction in the total error (see Table <a href="#tab:bb">6.1</a>). However, a major issue that we encountered during the course of training these models was the high computational time it took to run the models, even with parallel processing. While the NUTs algorithm and the HMC algorithm employed by the BLNN package are promising, the sampling methods take an exorbitant amount of time to run, especially when the idea is to sample the values of the hyperparameters using historical data (or evidence). <span class="citation"><a href="#ref-sharaf2020blnn" role="doc-biblioref">Sharaf et al.</a> (<a href="#ref-sharaf2020blnn" role="doc-biblioref">2020</a>)</span> note that “Bayesian learning for ANN requires longer learning time when compared with conventional algorithms such as BFGS or gradient descent” something that holds true based on our implementation in this post.</p>
 </div>
 <div id="python-extension" class="section level1" number="8">
 <h1><span class="header-section-number">8</span> Python extension</h1>
@@ -1024,7 +1024,7 @@ NNET
 </div>
 <div id="data-availability-and-analysis-scripts" class="section level1" number="9">
 <h1><span class="header-section-number">9</span> Data availability and analysis scripts</h1>
-<p>All data used in this extension is available online. The cleaned data analysis files used in this post, including the <a href="">R Script</a> generated from the <code>.Rmd</code> file using <code>knitr::purl()</code> can be found at our Github repository.<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a></p>
+<p>All data used in this extension post is available online. The cleaned data analysis files used in this post, including the <a href="https://github.com/okutse/bayesian-networks/blob/master/README.R">R Script</a> generated from the <code>.Rmd</code> file using <code>knitr::purl()</code> can be found at our Github repository.<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a></p>
 </div>
 <div id="references" class="section level1" number="10">
 <h1><span class="header-section-number">10</span> References</h1>
@@ -1066,7 +1066,7 @@ Sharaf, Taysseer, Theren Williams, Abdallah Chehade, and Keshav Pokhrel. 2020. <
 <li id="fn3"><p> formula defined here<a href="#fnref3" class="footnote-back">↩︎</a></p></li>
 <li id="fn4"><p><a href="https://www.bioconductor.org/install/" class="uri">https://www.bioconductor.org/install/</a><a href="#fnref4" class="footnote-back">↩︎</a></p></li>
 <li id="fn5"><p><a href="https://rdrr.io/github/BLNNdevs/BLNN/man/BLNN_Train.html" class="uri">https://rdrr.io/github/BLNNdevs/BLNN/man/BLNN_Train.html</a><a href="#fnref5" class="footnote-back">↩︎</a></p></li>
-<li id="fn6"><p><a href="#fnref6" class="footnote-back">↩︎</a></p></li>
+<li id="fn6"><p><a href="https://github.com/okutse/bayesian-networks" class="uri">https://github.com/okutse/bayesian-networks</a><a href="#fnref6" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
 

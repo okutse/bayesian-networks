@@ -567,7 +567,7 @@ OutTab %>% kable(format = "html", caption = "Artificial Neural Network Model Com
 
 In this extension post, we have explored Bayesian learning in the context of artificial neural networks for modeling survival data, using micro array gene expression data for our case. In particular, we have presented the main ideas behind why artificial neural networks using Bayesian learning present an alternative to modeling survival outcomes given the complexity presented by censored data in survival modeling. The post has presented a simplistic introduction to neural networks, focusing predominantly on the feed-forward neural network which is later implemented on the application problem. We later shift to the neural network approach to modeling survival data where we discuss the Cox PH-based ANNs and how this model has been improved to learn hyper-parameters from a posterior distribution derived from prior information (evidence) and the data.
 
-For brevity, and purposes of demonstration, we present the errors associated with each models trained in this post and show that using evidence results in a reduction in the total error. However, a major issue that we encountered during the course of training these models was the high computational time it took to run the models, even with parallel processing. While the NUTs algorithm and the HMC algorithm employed by the BLNN package are promising, the sampling methods take an exorbitant amount of time to run, especially when the idea is to sample the values of the hyperparameters using historical data (or evidence). @sharaf2020blnn note that "Bayesian learning for ANN requires longer learning time when compared with conventional algorithms such as BFGS or gradient descent" something that holds true based on our implementation in this post.
+For brevity, and purposes of demonstration, we present the errors associated with each models trained in this post and show that using evidence results in a reduction in the total error (see Table \@ref(tab:bb)). However, a major issue that we encountered during the course of training these models was the high computational time it took to run the models, even with parallel processing. While the NUTs algorithm and the HMC algorithm employed by the BLNN package are promising, the sampling methods take an exorbitant amount of time to run, especially when the idea is to sample the values of the hyperparameters using historical data (or evidence). @sharaf2020blnn note that "Bayesian learning for ANN requires longer learning time when compared with conventional algorithms such as BFGS or gradient descent" something that holds true based on our implementation in this post.
 
 # Python extension
 
@@ -575,7 +575,7 @@ In an extension to this post, we show an implementation of Bayesian learning for
 
 # Data availability and analysis scripts
 
-All data used in this extension is available online. The cleaned data analysis files used in this post, including the [R Script]() generated from the `.Rmd` file using `knitr::purl()` can be found at our Github repository.^[]
+All data used in this extension post is available online. The cleaned data analysis files used in this post, including the [R Script](https://github.com/okutse/bayesian-networks/blob/master/README.R) generated from the `.Rmd` file using `knitr::purl()` can be found at our Github repository.^[https://github.com/okutse/bayesian-networks]
 
 # References
 
