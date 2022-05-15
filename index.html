@@ -297,25 +297,25 @@ pre code {
 
 <h1 class="title toc-ignore">Bayesian Learning Artificial Neural Networks for Modeling Survival Data</h1>
 <h4 class="author">Amos Okutse, Naomi Lee</h4>
-<h4 class="date">14 May, 2022</h4>
+<h4 class="date">May 14, 2022</h4>
 
 </div>
 
 
 <center>
-<strong>Reading Time: 18 minute(s)</strong>
+<strong style="color:#7a7a7a" >Reading Time: 18 minute(s)</strong>
 </center>
 <p><br></p>
 <figure>
 <center>
 <img src="intel.jpg" style="width:100%">
-<figcaption>
-Image Source:<a href="https://iveybusinessjournal.com/the-reality-of-artificial-intelligence/">Eric Lee</a>
+<figcaption style="font-style: italic; text-align: center;">
+Image Source: <a href="https://iveybusinessjournal.com/the-reality-of-artificial-intelligence/">Eric Lee</a>
 </figcaption>
 </center>
 </figure>
 <div id="motivation" class="section level1" number="1">
-<h1><span class="header-section-number">1</span> Motivation</h1>
+<h1><span class="header-section-number" style="color:#4582ec">1</span> Motivation</h1>
 <p>Accurate predictions of prognostic outcomes are of substantial and pivotal significance in the context of quality care delivery. However, the application of deep learning models to enhance caregiving in healthcare has been limited by concerns related to the reliability of such methods. In this way, models that are robust and which can result in a throughput prediction of such clinical outcomes as survival while at the same time exhibiting high reliability and potential to be generalized to larger populations remain in high demand. There has been an emerging persistent interest in modeling survival data to leverage the promise deep learning models offer in this regard. This is not surprising given the significance of the healthcare sector, where we are often interested in understanding, for instance, the role that a specific differentially expressed gene plays concerning prognosis or, more generally, understanding how a given treatment regimen is likely to impact patient outcomes and in turn make decisions accordingly to improve these patient outcomes related to care.</p>
 <p>Analyzing time-to-event data involves is an inimitable problem given that the outcome of interest might comprise whether or not an event has occurred (binary outcome) but also the time when this event occurs (continuous outcome) <span class="citation">(<a href="#ref-feng2021bdnnsurv" role="doc-biblioref">Feng and Zhao 2021</a>)</span>. The problem is further complicated by missing data on the survival outcome of interest—censored data<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>. The very nature of (censored) survival data makes it impossible to apply classical analysis methods such as logistic regression.</p>
 <p>Additionally, models based on the Weibull model have restrictive assumptions, including a parametric form of the distribution of the time to event. Similarly, the semi-parametric Cox proportional hazards (PH) model <span class="citation">(<a href="#ref-burden2008bayesian" role="doc-biblioref">Burden and Winkler 2008</a>)</span> also has assumptions, a major one being the proportional hazards assumption: “the effect of a unit increase in a covariate is multiplicative with respect to the hazard rate.” Despite the outcome of interest not always being a hazard rate, it can be a probability; for instance, the PH assumption does not make much sense, especially when we have a substantial number of covariates (we would need each of these covariates to satisfy this assumption). The performance of these methods has also been shown to be poor, especially when the underlying model is incorrectly specified <span class="citation">(<a href="#ref-feng2021bdnnsurv" role="doc-biblioref">Feng and Zhao 2021</a>)</span>.</p>
@@ -323,17 +323,23 @@ Image Source:<a href="https://iveybusinessjournal.com/the-reality-of-artificial-
 <p>First, we introduce <em>neural networks in a more general context</em>, then discuss <em>the neural networks approach to modeling survival data</em> and <em>how Bayesian inference has been introduced into these models to enhance their predictive capacity</em>. Next, we introduce an application of the Bayesian learning artificial neural network (BLNN) using an R package of a similar name applied in modeling the effect of identified differentially expressed genes on the survival of patients with primary bladder cancer. Lastly, we compare this model to the more traditional neural network for illustrative purposes and provide an extension code in Python.</p>
 </div>
 <div id="but-what-are-neural-networks" class="section level1" number="2">
-<h1><span class="header-section-number">2</span> But what are neural networks?</h1>
+<h1><span class="header-section-number" style="color:#4582ec">2</span> So, what are neural networks?</h1>
 <p>With all the hype linked to this deep learning method in the recent past <span class="citation">(<a href="#ref-hastie2009elements" role="doc-biblioref">Hastie et al. 2009</a>)</span>, we provide a simplistic idea of what this method is. Defined: Neural networks are:</p>
 <blockquote>
 <p>“Computer systems with interconnected nodes designed like neurons to mimic the human brain in terms of intelligence. These networks use algorithms to discover hidden data structures and patterns, correlations, clusters, and classify them, learn and improve over time.”</p>
 </blockquote>
 <p>The idea is to take in simple functions as inputs and then allow these functions to build upon each other. The models are flexible enough to learn non-linear relationships rather than prescribing them as is in kernels or transformations. A neural network takes in an input vector of p features <span class="math inline">\(X=(X_1, X_2, \cdots , X_p)\)</span> and then creates a non-linear function to forecast an outcome variable, <span class="math inline">\(Y\)</span>. While varied statistical models such as Bayesian additive regression trees (BART) and random forests exist, neural networks have a structure that contrasts them from these other methods. Figure 2.1 shows a feed-forward neural network with an input layer consisting of 4 input features, <span class="math inline">\(X=(X_1, \cdots, X_4)\)</span>, a single hidden layer with 5 nodes <span class="math inline">\(A_1, \cdots, A_5\)</span>, a non-linear activation function, <span class="math inline">\(f(X)\)</span> (output layer), and the desired outcome, <span class="math inline">\(Y.\)</span></p>
 <figure>
+<<<<<<< HEAD
 <center>
 <img src="basic_neural_1.jpg" style="width:50%">
 <figcaption>
 Figure 2.1: The architecture of a feed-forward neural network (Source: Hastie et al. 2009)
+=======
+<img src="basic_neural_1.jpg" style="width:50%; display: block; margin-left: auto; margin-right: auto;">
+<figcaption style="font-style: italic; text-align: center;" >
+Image Source: Hastie et al. 2009
+>>>>>>> 0c593a96da7474ffe5e016f2aaa01fd32a239db2
 </figcaption>
 </center>
 </figure>
@@ -353,8 +359,13 @@ where <span class="math inline">\(g(z)\)</span> is the activation function speci
 <p>where <span class="math inline">\(K\)</span> in Figure 1 is 5. Parameters <span class="math inline">\(\beta_0, \cdots, \beta_K\)</span>, as well as, <span class="math inline">\(w_{10}, \cdots, w_{Kp}\)</span> are estimated from the data. Quite a number of options exist for the activation function, <span class="math inline">\(g(z)\)</span>.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> The non-linearity of the activation function <span class="math inline">\(g(z)\)</span> allows the model to capture complex non-linear structures as well as interaction effects.</p>
 </div>
 <div id="the-artificial-neural-network-ann-approach-to-modeling-survival-data" class="section level1" number="3">
+<<<<<<< HEAD
 <h1><span class="header-section-number">3</span> The Artificial Neural Network (ANN) approach to modeling survival data</h1>
 <p>The BLNN implementation of Bayesian inference in artificial neural networks is based on the Cox proportional hazards (PH) neural model described by <span class="citation"><a href="#ref-sharaf2015two" role="doc-biblioref">Sharaf and Tsokos</a> (<a href="#ref-sharaf2015two" role="doc-biblioref">2015</a>)</span>. In particular, the idea is to build a predictive model for survival using a neural network with <span class="math inline">\(K\)</span> outputs. <span class="math inline">\(K\)</span> here defines the number of periods. Using this neural network architecture, Mani et al. estimated a hazard function where for each individual, we have a training vector a <span class="math inline">\(1\times K\)</span> of hazard probabilities <span class="math inline">\((h_{ik})\)</span> defined as:
+=======
+<h1><span class="header-section-number" style="color:#4582ec">3</span> The Artificial Neural Network (ANN) Approach to modeling survival data</h1>
+<p>The BLNN implementation of Bayesian inference in artificial neural networks is based on the Cox PH-based neural model described by <span class="citation"><a href="#ref-sharaf2015two" role="doc-biblioref">Sharaf and Tsokos</a> (<a href="#ref-sharaf2015two" role="doc-biblioref">2015</a>)</span>. In particular, the idea is to build a predictive model for survival using a neural network with <span class="math inline">\(K\)</span> outputs. <span class="math inline">\(K\)</span> here defines the number of periods. Using this neural network architecture, Mani et al. estimated a hazard function where for each individual, we have a training vector a $1 K $ of hazard probabilities <span class="math inline">\((h_{ik})\)</span> defined as:
+>>>>>>> 0c593a96da7474ffe5e016f2aaa01fd32a239db2
 <span class="math display">\[ 
 h_{ik}=
 \begin{cases}
@@ -374,15 +385,21 @@ S(t_k)=\prod_{l=1}^k (1-h(t_l))
 <p>where <span class="math inline">\(k\)</span> denotes the disjoint intervals and <span class="math inline">\(l\)</span> the number of time periods in which the event occurred.</p>
 <figure>
 <center>
+<<<<<<< HEAD
 <img src="cox_net.png" style="width:100%">
 <figcaption>
 Figure 3.1: The architecture of the feed-forward neural network based on the Cox PH model (Source: Sharaf et al. 2020)
+=======
+<img src="cox_net.png" style="width:70%; display: block; margin-left: auto; margin-right: auto;">
+<figcaption style="font-style: italic; text-align: center;" >
+Image Source: Sharaf et al. 2020
+>>>>>>> 0c593a96da7474ffe5e016f2aaa01fd32a239db2
 </figcaption>
 </center>
 </figure>
 </div>
 <div id="bayesian-approach-to-inference-using-ann" class="section level1" number="4">
-<h1><span class="header-section-number">4</span> Bayesian approach to inference using ANN</h1>
+<h1><span class="header-section-number" style="color:#4582ec">4</span> Bayesian approach to inference using ANN</h1>
 <p>This post focuses on inference using a two-layer feed-forward artificial neural network. Specifically, we describe the Bayesian learning neural networks implemented by <span class="citation"><a href="#ref-sharaf2020blnn" role="doc-biblioref">Sharaf et al.</a> (<a href="#ref-sharaf2020blnn" role="doc-biblioref">2020</a>)</span> on a neural network-based implementation of the Cox proportional hazard model described above. In training neural networks using conventional methodologies, the aim is to find a local minimum of the error function, an ideology that makes model selection rather difficult. Additionally, as described elsewhere by <span class="citation">(<a href="#ref-hastie2009elements" role="doc-biblioref">Hastie et al. 2009</a>)</span>, the training of neural networks presents such an issue as overfitting, a situation where, even though the model performs extremely well on the training data, it fails to generalize well on resampling or when applied on unobserved data. Overfitting has been linked to these models having too many weights such that they overfit at the global minimum of <span class="math inline">\(R\)</span> <span class="citation">(<a href="#ref-lawrence1997lessons" role="doc-biblioref">Lawrence, Giles, and Tsoi 1997</a>; <a href="#ref-hastie2009elements" role="doc-biblioref">Hastie et al. 2009</a>)</span>. According to <span class="citation"><a href="#ref-burden2008bayesian" role="doc-biblioref">Burden and Winkler</a> (<a href="#ref-burden2008bayesian" role="doc-biblioref">2008</a>)</span> :</p>
 <blockquote>
 <p>“Bayesian regularized artificial neural networks (BRANNs) are more robust than standard backpropagation nets and can reduce or eliminate the need for lengthy cross-validation.”</p>
@@ -398,19 +415,30 @@ where:
 <span class="math inline">\(Z\)</span> and <span class="math inline">\(T\)</span> are the normalizing constants.</p>
 <p>The algorithm is summarized as below:</p>
 <div class="figure">
+<<<<<<< HEAD
 <img src="blnn_algorithm.jpg" alt="" />
 <p class="caption">Source: Sharaf et al. 2020</p>
+=======
+<img src="blnn_algorithm.jpg" alt="" style="width:50%; display: block; margin-left: auto; margin-right: auto;"/>
+<p class="caption" style="font-style: italic; text-align: center;" >Image Source: Sharaf et al. 2020</p>
+>>>>>>> 0c593a96da7474ffe5e016f2aaa01fd32a239db2
 </div>
 <p>Details about the implementation of this method can be found <a href="https://rdrr.io/github/BLNNdevs/BLNN/#vignettes">here</a>.</p>
 <p><span class="citation"><a href="#ref-sharaf2020blnn" role="doc-biblioref">Sharaf et al.</a> (<a href="#ref-sharaf2020blnn" role="doc-biblioref">2020</a>)</span> utilize a no-U-turn sampler (NUTS), an extension of Hamiltonian Monte-Carlo (HMC) that seeks to reduce the dependence on the number of step parameters used in HMC while retaining the efficiency in generating independent samples. The ANN is trained using both HMC and NUTS with dual averaging. The negative log-likelihood is replaced by network errors, and backpropagation is used to compute the gradients. Network errors and weights are assumed to be normally distributed with mean, <span class="math inline">\(\mu\)</span> but with a non-constant variance, <span class="math inline">\(\sigma^2\)</span>. The variance of the prior is known by the precision parameter, <span class="math inline">\(\tau = \frac{1}{\sigma^2}\)</span> also called the hyperparameters which are either assigned to fixed, fine-tuned values or re-estimated based on historical data. The list of hyperparameters allowed in the BLNN implementation is discussed elsewhere <span class="citation">(<a href="#ref-sharaf2020blnn" role="doc-biblioref">Sharaf et al. 2020</a>)</span>.</p>
 <p>In the evidence procedure, the values of the hyper-parameters are re-estimated after the estimation of weights minimizing the second order-Taylor expansion. The error function of the model using Bayesian inference is composed of the sum of the error due to the data and that due to the choice of the weights prior. After training, hyper-parameters of the network and errors are re-estimated <span class="citation">(<a href="#ref-sharaf2020blnn" role="doc-biblioref">Sharaf et al. 2020</a>)</span>. The following section provides a sample application of BLNNs to real-world data.</p>
 </div>
 <div id="bayesian-based-neural-networks-for-modeling-survival-using-micro-array-data" class="section level1" number="5">
-<h1><span class="header-section-number">5</span> Bayesian-based neural networks for modeling survival using micro-array data</h1>
+<h1><span class="header-section-number" style="color:#4582ec">5</span> Bayesian-based neural networks for modeling survival using micro-array data</h1>
 <div id="introduction-and-data-description" class="section level2" number="5.1">
+<<<<<<< HEAD
 <h2><span class="header-section-number">5.1</span> Introduction and data description</h2>
 <p>In our analyses in this section, we employ data consisting of 256 samples prepared using the Illumina Human-6 expression BeadChip Version 2.0 to identify DEGs and use Bayesian neural networks to identify how these genes impact survival in patients with primary bladder cancer. The data relates to 165 primary bladder cancer samples and nine normal cells downloaded from the Gene Expression Omnibus (GEO) <span class="citation">(<a href="#ref-kim2010predictive" role="doc-biblioref">Kim et al. 2010</a>; <a href="#ref-okutse2021differential" role="doc-biblioref">Okutse and Nyongesa 2021</a>)</span>. Before we begin this demonstration, we first load the Bioconductor packages to be used in the analysis. Details on the installation of this packages can be found elsewhere.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></p>
 <p>After loading the required packages, we download the data directly into our working environment and prepare it for analysis by performing a log transformation, creating a design matrix, and then fitting linear models for the identification of differentially expressed genes using empirical Bayes statistics for differential expression (eBayes) from the <code>limma</code> package <span class="citation">(<a href="#ref-ritchie2015limma" role="doc-biblioref">Ritchie et al. 2015</a>)</span>.</p>
+=======
+<h2><span class="header-section-number" style="color:#4582ec">5.1</span> Introduction and data description</h2>
+<p>In our analyses in this section, we employ data consisting of 256 samples prepared using the Illumina Human-6 expression BeadChip Version 2.0 to identify DEGs and use bayesian neural networks to identify how these genes impact survival in patients with primary bladder cancer. The data relates to 165 primary bladder cancer samples and nine normal cells downloaded from the Gene Expression Omnibus (GEO) <span class="citation">(<a href="#ref-kim2010predictive" role="doc-biblioref">Kim et al. 2010</a>; <a href="#ref-okutse2021differential" role="doc-biblioref">Okutse and Nyongesa 2021</a>)</span>. Before we begin this demonstration, we first load the Bioconductor packages to be used in the anallysis. Details on the installation of this packages can be found elsewhere.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a></p>
+<p>After loading the required packages, we then download the data directly into our working environment and prepare it for analysis by performing a log transformation, creating a design matrix, and then fitting linear models for the identification of differentially expressed genes using empirical Bayes statistics for differential expression (eBayes) using the <code>limma</code> package <span class="citation">(<a href="#ref-ritchie2015limma" role="doc-biblioref">Ritchie et al. 2015</a>)</span>.</p>
+>>>>>>> 0c593a96da7474ffe5e016f2aaa01fd32a239db2
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#load the data from the GEO</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>gset <span class="ot">&lt;-</span> <span class="fu">getGEO</span>(<span class="st">&quot;GSE13507&quot;</span>, <span class="at">GSEMatrix =</span><span class="cn">TRUE</span>, <span class="at">AnnotGPL=</span><span class="cn">TRUE</span>)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">length</span>(gset) <span class="sc">&gt;</span> <span class="dv">1</span>) idx <span class="ot">&lt;-</span> <span class="fu">grep</span>(<span class="st">&quot;GPL6102&quot;</span>, <span class="fu">attr</span>(gset, <span class="st">&quot;names&quot;</span>)) <span class="cf">else</span> idx <span class="ot">&lt;-</span> <span class="dv">1</span></span>
@@ -453,7 +481,7 @@ where:
 <span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(tT[<span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>,], <span class="st">&quot;deg.RDS&quot;</span>)</span></code></pre></div>
 </div>
 <div id="exploratory-data-analysis-and-deg-identification" class="section level2" number="5.2">
-<h2><span class="header-section-number">5.2</span> Exploratory data analysis and DEG identification</h2>
+<h2><span class="header-section-number" style="color:#4582ec">5.2</span> Exploratory data analysis and DEG identification</h2>
 <p>For our exploratory data analysis, we start by presenting a small sample of 10 up-and-down regulated genes in Table <a href="#tab:table1">5.1</a>. Here we notice that <em>CDC20</em> is one of the most significantly up-regulated genes between normal and primary bladder cancer samples (log-Fold Change = 0.472, Average Expression = 3.44, p&lt;0.001).</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#top regulated genes</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>upregulated<span class="ot">&lt;-</span>tT[<span class="fu">which</span>(tT<span class="sc">$</span>logFC<span class="sc">&gt;</span><span class="dv">0</span>),][<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,]</span>
@@ -469,7 +497,7 @@ where:
 <span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>             <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">&quot;Gene ID&quot;</span>, <span class="st">&quot;Gene Symbol&quot;</span>, <span class="st">&quot;logFC&quot;</span>, <span class="st">&quot;Average Expression&quot;</span>, <span class="st">&quot;Adjusted P-value&quot;</span>, <span class="st">&quot;B&quot;</span>)) <span class="sc">%&gt;%</span></span>
 <span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">full_width =</span> <span class="cn">FALSE</span>, <span class="at">latex_options =</span> <span class="fu">c</span>(<span class="st">&quot;HOLD_position&quot;</span>, <span class="st">&quot;stripped&quot;</span>, <span class="st">&quot;scale_down&quot;</span>), <span class="at">position =</span> <span class="st">&quot;left&quot;</span>)</span></code></pre></div>
 <table class="table" style="width: auto !important; ">
-<caption>
+<caption style="color:#7a7a7a; font-style: italic; text-align: center;">
 <span id="tab:table1">Table 5.1: </span>Top 10 up and down regulated genes in primary bladder cancer. The first 10 rows represent upregulated genes
 </caption>
 <thead>
@@ -892,7 +920,7 @@ CORIN
 <p>In Figure <a href="#fig:mean-difference">5.1</a> we visualize the differentially expressed genes in this sample using a mean-difference plot highlighting the genes depending on whether they were significantly up or down regulated.</p>
 <div class="figure"><span style="display:block;" id="fig:mean-difference"></span>
 <img src="index_files/figure-html/mean-difference-1.png" alt="A mean-difference plot showing the statistically significantly up and down regulated genes in primary bladder cancer relative to normal bladder cells."  />
-<p class="caption">
+<p class="caption" style="font-style: italic; text-align: center;">
 Figure 5.1: A mean-difference plot showing the statistically significantly up and down regulated genes in primary bladder cancer relative to normal bladder cells.
 </p>
 </div>
@@ -901,15 +929,20 @@ Figure 5.1: A mean-difference plot showing the statistically significantly up an
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(edo, <span class="at">showCategory=</span><span class="dv">10</span>, <span class="at">cex.names=</span><span class="dv">3</span>)</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:enrich"></span>
 <img src="index_files/figure-html/enrich-1.png" alt="Sample Enrichment analysis results using the Gene Ontology (GO) enrichment analysis."  />
-<p class="caption">
+<p class="caption" style="font-style: italic; text-align: center;">
 Figure 5.2: Sample Enrichment analysis results using the Gene Ontology (GO) enrichment analysis.
 </p>
 </div>
 </div>
 </div>
 <div id="artificial-neural-networks-ann-with-bayesian-learning" class="section level1" number="6">
+<<<<<<< HEAD
 <h1><span class="header-section-number">6</span> Artificial Neural Networks (ANN) with Bayesian Learning</h1>
 <p>Because of the computationally intensive nature of training neural network models using Bayesian learning and simulation methodology such as the NUTS algorithm, we restrict analyses to only a small sample of the genetic information available in the dataset. We load a sample of n= 150 genetic information for analysis using BLNN.</p>
+=======
+<h1><span class="header-section-number" style="color:#4582ec">6</span> Artificial Neural Networks (ANN) with Bayesian Learning</h1>
+<p>In this analysis, because of the computationally intensive nature of training neural network models using Bayesian learning and simulation methodology such as the NUTS algorithm, we restrict analyses to only a small sample of the genetic information available in the dataset. We load a sample of n= 150 genetic information for analysis using BLNN.</p>
+>>>>>>> 0c593a96da7474ffe5e016f2aaa01fd32a239db2
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#load the bayesian learning package</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(BLNN)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">#load the saved train and test data files</span></span>
@@ -978,7 +1011,7 @@ Figure 5.2: Sample Enrichment analysis results using the Gene Ontology (GO) enri
 <span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(OutTab, <span class="st">&quot;OutTab.csv&quot;</span>)</span>
 <span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>OutTab <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">format =</span> <span class="st">&quot;html&quot;</span>, <span class="at">caption =</span> <span class="st">&quot;Artificial Neural Network Model Comparisons&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">kable_styling</span>(<span class="at">full_width =</span> <span class="cn">FALSE</span>, <span class="at">latex_options =</span> <span class="fu">c</span>(<span class="st">&quot;HOLD_position&quot;</span>, <span class="st">&quot;stripped&quot;</span>, <span class="st">&quot;scale_down&quot;</span>), <span class="at">position =</span> <span class="st">&quot;left&quot;</span>)</span></code></pre></div>
 <table class="table" style="width: auto !important; ">
-<caption>
+<caption style="color:#7a7a7a; font-style: italic; text-align: center;">
 <span id="tab:bb">Table 6.1: </span>Artificial Neural Network Model Comparisons
 </caption>
 <tbody>
@@ -1017,20 +1050,31 @@ NNET
 </table>
 </div>
 <div id="discussion-and-conclusion" class="section level1" number="7">
+<<<<<<< HEAD
 <h1><span class="header-section-number">7</span> Discussion and Conclusion</h1>
 <p>In this extension post, we have explored Bayesian learning in the context of artificial neural networks for modeling survival data, using micro-array gene expression data. We have presented the main ideas behind why artificial neural networks using Bayesian learning present an alternative to modeling survival outcomes given the complexity presented by censored data in survival modeling. The post has presented a simplistic introduction to neural networks, focusing predominantly on the feed-forward neural network which is later implemented on the application problem. We later shift to the neural network approach to modeling survival data where we discuss the Cox PH-based ANNs and how this model has been improved to learn hyper-parameters from a posterior distribution derived from prior information (evidence) and the data.</p>
 <p>For brevity, and purposes of demonstration, we presented the errors associated with each model trained in this post and show that using evidence results in a reduction in the total error (see Table <a href="#tab:bb">6.1</a>). However, a major issue that we encountered during the course of training these models was the high computational time it took to run the models, even with parallel processing. While the NUTs algorithm and the HMC algorithm employed by the BLNN package are promising, the sampling methods take an exorbitant amount of time to run, especially when the idea is to sample the values of the hyperparameters using historical data (or evidence). <span class="citation"><a href="#ref-sharaf2020blnn" role="doc-biblioref">Sharaf et al.</a> (<a href="#ref-sharaf2020blnn" role="doc-biblioref">2020</a>)</span> note that “Bayesian learning for ANN requires longer learning time when compared with conventional algorithms such as BFGS or gradient descent” something that holds true based on our implementation in this post.</p>
+=======
+<h1><span class="header-section-number" style="color:#4582ec">7</span> Discussion and Conclusion</h1>
+<p>In this extension post, we have explored Bayesian learning in the context of artificial neural networks for modeling survival data, using micro array gene expression data for our case. In particular, we have presented the main ideas behind why artificial neural networks using Bayesian learning present an alternative to modeling survival outcomes given the complexity presented by censored data in survival modeling. The post has presented a simplistic introduction to neural networks, focusing predominantly on the feed-forward neural network which is later implemented on the application problem. We later shift to the neural network approach to modeling survival data where we discuss the Cox PH-based ANNs and how this model has been improved to learn hyper-parameters from a posterior distribution derived from prior information (evidence) and the data.</p>
+<p>For brevity, and purposes of demonstration, we present the errors associated with each models trained in this post and show that using evidence results in a reduction in the total error (see Table <a href="#tab:bb">6.1</a>). However, a major issue that we encountered during the course of training these models was the high computational time it took to run the models, even with parallel processing. While the NUTs algorithm and the HMC algorithm employed by the BLNN package are promising, the sampling methods take an exorbitant amount of time to run, especially when the idea is to sample the values of the hyperparameters using historical data (or evidence). <span class="citation"><a href="#ref-sharaf2020blnn" role="doc-biblioref">Sharaf et al.</a> (<a href="#ref-sharaf2020blnn" role="doc-biblioref">2020</a>)</span> note that “Bayesian learning for ANN requires longer learning time when compared with conventional algorithms such as BFGS or gradient descent” something that holds true based on our implementation in this post.</p>
+>>>>>>> 0c593a96da7474ffe5e016f2aaa01fd32a239db2
 </div>
 <div id="python-extension" class="section level1" number="8">
-<h1><span class="header-section-number">8</span> Python extension</h1>
+<h1><span class="header-section-number" style="color:#4582ec">8</span> Python extension</h1>
 <p>In an extension to this post, we show an implementation of Bayesian learning for neural networks using a simulated dataset in Python is available. The method includes the estimation of the uncertatinty associated with survival estimates which is of great value in the context of predictive modeling. The post can be found <a href="https://okutse.github.io">here</a>. After modeling and identifying the genes that impact survival in primary bladder cancer patients, the genes can then be annotated and encoded based on their enrichment level as either high, medium, or low and survival curves plotted to understand the effect these varied expression profiles have on survival.</p>
 </div>
 <div id="data-availability-and-analysis-scripts" class="section level1" number="9">
+<<<<<<< HEAD
 <h1><span class="header-section-number">9</span> Data availability and analysis scripts</h1>
 <p>All data used in this extension post is available online. The cleaned data analysis files used in this post, including the <a href="https://github.com/okutse/bayesian-networks/blob/master/README.R">R Script</a> generated from the <code>.Rmd</code> file using <code>knitr::purl()</code> can be found at our Github repository.<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a></p>
+=======
+<h1><span class="header-section-number" style="color:#4582ec">9</span> Data availability and analysis scripts</h1>
+<p>All data used in this extension post is available online. The cleaned data analysis files used in this post, including the <a href="https://github.com/okutse/bayesian-networks/blob/master/README.R">R Script</a> generated from the <code>.Rmd</code> file using <code>knitr::purl()</code> can be found at our Github repository.<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a></p>
+>>>>>>> 0c593a96da7474ffe5e016f2aaa01fd32a239db2
 </div>
 <div id="references" class="section level1" number="10">
-<h1><span class="header-section-number">10</span> References</h1>
+<h1><span class="header-section-number" style="color:#4582ec">10</span> References</h1>
 <div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-burden2008bayesian" class="csl-entry">
 Burden, Frank, and Dave Winkler. 2008. <span>“Bayesian Regularization of Neural Networks.”</span> <em>Artificial Neural Networks</em>, 23–42.
@@ -1066,9 +1110,16 @@ Sharaf, Taysseer, Theren Williams, Abdallah Chehade, and Keshav Pokhrel. 2020. <
 <ol>
 <li id="fn1"><p>Censoring refers to a concept in survival analysis where the actual time to event is unknown due to such reasons as the loss to follow up, withdrawals, or an exact unknown time of event. In right censoring, the event of interest occurs after the end of the experiment or study, whereas in left censoring, the event occurs before the onset of the study. Interval censoring is when the actual survival time is bounded between some interval<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
 <li id="fn2"><p>Common activation functions include the sigmoid activation function favored in classification problems, the rectified linear unit (ReLU) favored in linear regression problems, tanh, and leaky ReLU.<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
+<<<<<<< HEAD
 <li id="fn3"><p><a href="https://www.bioconductor.org/install/" class="uri">https://www.bioconductor.org/install/</a><a href="#fnref3" class="footnote-back">↩︎</a></p></li>
 <li id="fn4"><p><a href="https://rdrr.io/github/BLNNdevs/BLNN/man/BLNN_Train.html" class="uri">https://rdrr.io/github/BLNNdevs/BLNN/man/BLNN_Train.html</a><a href="#fnref4" class="footnote-back">↩︎</a></p></li>
 <li id="fn5"><p><a href="https://github.com/okutse/bayesian-networks" class="uri">https://github.com/okutse/bayesian-networks</a><a href="#fnref5" class="footnote-back">↩︎</a></p></li>
+=======
+<li id="fn3"><p> formula defined here<a href="#fnref3" class="footnote-back">↩︎</a></p></li>
+<li id="fn4"><p><a href="https://www.bioconductor.org/install/" class="uri">https://www.bioconductor.org/install/</a><a href="#fnref4" class="footnote-back">↩︎</a></p></li>
+<li id="fn5"><p><a href="https://rdrr.io/github/BLNNdevs/BLNN/man/BLNN_Train.html" class="uri">https://rdrr.io/github/BLNNdevs/BLNN/man/BLNN_Train.html</a><a href="#fnref5" class="footnote-back">↩︎</a></p></li>
+<li id="fn6"><p><a href="https://github.com/okutse/bayesian-networks" class="uri">https://github.com/okutse/bayesian-networks</a><a href="#fnref6" class="footnote-back">↩︎</a>, <a href="https://github.com/nlee100/bayesian-neuralnetworks" class="uri">https://github.com/nlee100/bayesian-neuralnetworks</a><a href="#fnref7" class="footnote-back">↩︎</a></p></li>
+>>>>>>> 0c593a96da7474ffe5e016f2aaa01fd32a239db2
 </ol>
 </div>
 
