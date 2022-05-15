@@ -106,11 +106,13 @@ With all the hype linked to this deep learning method in the recent past [@hasti
 
 > "Computer systems with interconnected nodes designed like neurons to mimic the human brain in terms of intelligence. These networks use algorithms to discover hidden data structures and patterns, correlations, clusters, and classify them, learn and improve over time."
 
-The idea is to take in simple functions as inputs and then allow these functions to build upon each other. The models are flexible enough to learn non-linear relationships rather than prescribing them as is in kernels or transformations. A neural network takes in an input vector of p features $X=(X_1, X_2, \cdots , X_p)$ and then creates a non-linear function to forecast an outcome variable, $Y$. While varied statistical models such as Bayesian additive regression trees (BART) and random forests exist, neural networks have a structure that contrasts them from these other methods. Figure 1 shows a feed-forward neural network with an input layer consisting of 4 input features, $X=(X_1, \cdots, X_4)$, a single hidden layer with 5 nodes $A_1, \cdots, A_5$, a non-linear activation function, $f(X)$ (output layer), and the desired outcome, $Y.$
+The idea is to take in simple functions as inputs and then allow these functions to build upon each other. The models are flexible enough to learn non-linear relationships rather than prescribing them as is in kernels or transformations. A neural network takes in an input vector of p features $X=(X_1, X_2, \cdots , X_p)$ and then creates a non-linear function to forecast an outcome variable, $Y$. While varied statistical models such as Bayesian additive regression trees (BART) and random forests exist, neural networks have a structure that contrasts them from these other methods. Figure 2.1 shows a feed-forward neural network with an input layer consisting of 4 input features, $X=(X_1, \cdots, X_4)$, a single hidden layer with 5 nodes $A_1, \cdots, A_5$, a non-linear activation function, $f(X)$ (output layer), and the desired outcome, $Y.$
 
 <figure>
+  <center>
     <img src="basic_neural_1.jpg" style="width:50%">
-    <figcaption>Image Source: Hastie et al. 2009</figcaption>
+    <figcaption>Figure 2.1: The architecture of a feed-forward neural network (Source: Hastie et al. 2009)</figcaption>
+  </center>
 </figure>
 
 The arrows show that the input layer is feeding into each of the nodes in the hidden layer which in turn feed into our activation function all the way to the outcome in a forward manner hence the name—"feed forward”. A general neural network model has the form:
@@ -133,9 +135,9 @@ where $g(z)$ is the activation function specified. The $K$ activation functions 
 
 where $K$ in Figure 1 is 5. Parameters $\beta_0, \cdots, \beta_K$, as well as, $w_{10}, \cdots, w_{Kp}$ are estimated from the data. Quite a number of options exist for the activation function, $g(z)$. ^[Common activation functions include the sigmoid activation function favored in classification problems, the rectified linear unit (ReLU) favored in linear regression problems, tanh, and leaky ReLU.] The non-linearity of the activation function $g(z)$ allows the model to capture complex non-linear structures as well as interaction effects.
 
-# The Artificial Neural Network (ANN) Approach to modeling survival data
+# The Artificial Neural Network (ANN) approach to modeling survival data
 
-The BLNN implementation of Bayesian inference in artificial neural networks is based on the Cox PH-based neural model described by @sharaf2015two. In particular, the idea is to build a predictive model for survival using a neural network with $K$ outputs. $K$ here defines the number of periods. Using this neural network architecture, Mani et al. estimated a hazard function where for each individual, we have a training vector a $1 \times K $ of hazard probabilities $(h_{ik})$ defined as:
+The BLNN implementation of Bayesian inference in artificial neural networks is based on the Cox proportional hazards (PH) neural model described by @sharaf2015two. In particular, the idea is to build a predictive model for survival using a neural network with $K$ outputs. $K$ here defines the number of periods. Using this neural network architecture, Mani et al. estimated a hazard function where for each individual, we have a training vector a $1\times K$ of hazard probabilities $(h_{ik})$ defined as:
   \[ 
 h_{ik}=
 \begin{cases}
@@ -149,7 +151,7 @@ h_{ik}=
 \Phi (x) = \frac{1}{1+e^{-x}}
 \]
 
-The weights for this network are obtained through a minimization of the cross-entropy loss function^[ formula defined here]. Figure 2 shows the architecture of a feed-forward neural network based on the Cox PH model with an input layer consisting of $p$ covariates and a bias term, a single hidden layer with $H$ nodes, and a single bias term. Lastly, we have an output layer with $K$ units, which learn to estimate the hazard probabilities associated with each individual at each time interval. The network's input layer feeds the hidden layer, which in turn feeds the output layer. The "feed-forward" naming convention is derived from this aspect of the architecture. The hazard estimates based on this neural network model are then converted to estimates of survival based on the survival function:
+The weights for this network are obtained through a minimization of the cross-entropy loss function. Figure 3.1 shows the architecture of a feed-forward neural network based on the Cox PH model with an input layer consisting of $p$ covariates and a bias term, a single hidden layer with $H$ nodes, and a single bias term [@sharaf2015two]. Lastly, we have an output layer with $K$ units, which learn to estimate the hazard probabilities associated with each individual at each time interval. The network's input layer feeds the hidden layer, which in turn feeds the output layer. The "feed-forward" naming convention is derived from this aspect of the architecture. The hazard estimates based on this neural network model are then converted to estimates of survival based on the survival function:
 
 \[
 S(t_k)=\prod_{l=1}^k (1-h(t_l))
@@ -160,7 +162,7 @@ where $k$ denotes the disjoint intervals and $l$ the number of time periods in w
 <figure>
   <center>
     <img src="cox_net.png" style="width:100%">
-    <figcaption>Image Source: Sharaf et al. 2020</figcaption>
+    <figcaption>Figure 3.1: The architecture of the feed-forward neural network based on the Cox PH model (Source: Sharaf et al. 2020)</figcaption>
   </center>
 </figure>
 
@@ -188,17 +190,19 @@ The algorithm is summarized as below:
 url<-"blnn_algorithm.jpg"
 ```
 
-![Image Source: Sharaf et al. 2020](`r url`)
+![Source: Sharaf et al. 2020](`r url`)
 
 Details about the implementation of this method can be found [here]( https://rdrr.io/github/BLNNdevs/BLNN/#vignettes).
 
-@sharaf2020blnn utilize a no-U-turn sampler (NUTS), an extension of Hamiltonian Monte-Carlo (HMC) that seeks to reduce the dependence on the number of step parameters used in HMC while retaining the efficiency in generating independent samples. The ANN is trained using both HMC and NUTS with dual averaging. The negative log-likelihood is replaced by network errors, and backpropagation is used to compute the gradients. Network errors and weights are assumed to be normally distributed with mean, $\mu$ but with a non-constant variance, $\sigma^2$. The variance of the prior is known by the precision parameter, $\tau = \frac{1}{\sigma^2}$ aka the hyperparameters which are either assigned to fixed, fine-tuned values or re-estimated based on historical data. The list of hyperparameters allowed in the BLNN implementation is discussed elsewhere [@sharaf2020blnn]. The following section provides a sample application of BLNNs applied to real-world data.
+@sharaf2020blnn utilize a no-U-turn sampler (NUTS), an extension of Hamiltonian Monte-Carlo (HMC) that seeks to reduce the dependence on the number of step parameters used in HMC while retaining the efficiency in generating independent samples. The ANN is trained using both HMC and NUTS with dual averaging. The negative log-likelihood is replaced by network errors, and backpropagation is used to compute the gradients. Network errors and weights are assumed to be normally distributed with mean, $\mu$ but with a non-constant variance, $\sigma^2$. The variance of the prior is known by the precision parameter, $\tau = \frac{1}{\sigma^2}$ also called the hyperparameters which are either assigned to fixed, fine-tuned values or re-estimated based on historical data. The list of hyperparameters allowed in the BLNN implementation is discussed elsewhere [@sharaf2020blnn]. 
+
+In the evidence procedure, the values of the hyper-parameters are re-estimated after the estimation of weights minimizing the second order-Taylor expansion. The error function of the model using Bayesian inference is composed of the sum of the error due to the data and that due to the choice of the weights prior. After training, hyper-parameters of the network and errors are re-estimated [@sharaf2020blnn]. The following section provides a sample application of BLNNs to real-world data.
 
 # Bayesian-based neural networks for modeling survival using micro-array data
 
 ## Introduction and data description
 
-In our analyses in this section, we employ data consisting of 256 samples prepared using the Illumina Human-6 expression BeadChip Version 2.0 to identify DEGs and use bayesian neural networks to identify how these genes impact survival in patients with primary bladder cancer. The data relates to 165 primary bladder cancer samples and nine normal cells downloaded from the Gene Expression Omnibus (GEO) [@kim2010predictive; @okutse2021differential]. Before we begin this demonstration, we first load the Bioconductor packages to be used in the anallysis. Details on the installation of this packages can be found elsewhere. ^[https://www.bioconductor.org/install/]
+In our analyses in this section, we employ data consisting of 256 samples prepared using the Illumina Human-6 expression BeadChip Version 2.0 to identify DEGs and use Bayesian neural networks to identify how these genes impact survival in patients with primary bladder cancer. The data relates to 165 primary bladder cancer samples and nine normal cells downloaded from the Gene Expression Omnibus (GEO) [@kim2010predictive; @okutse2021differential]. Before we begin this demonstration, we first load the Bioconductor packages to be used in the analysis. Details on the installation of this packages can be found elsewhere. ^[https://www.bioconductor.org/install/]
 
 ```{r include=FALSE}
 #load the required libraries for the exploration and DEG
@@ -208,7 +212,7 @@ library(clusterProfiler)
 library(Biobase)
 ```
 
-After loading the required packages, we then download the data directly into our working environment and prepare it for analysis by performing a log transformation, creating a design matrix, and then fitting linear models for the identification of differentially expressed genes using empirical Bayes statistics for differential expression (eBayes) using the `limma` package [@ritchie2015limma].
+After loading the required packages, we download the data directly into our working environment and prepare it for analysis by performing a log transformation, creating a design matrix, and then fitting linear models for the identification of differentially expressed genes using empirical Bayes statistics for differential expression (eBayes) from the `limma` package [@ritchie2015limma].
 
 ```{r cache=TRUE, include=TRUE}
 #load the data from the GEO
@@ -320,7 +324,7 @@ barplot(edo, showCategory=10, cex.names=3)
 
 # Artificial Neural Networks (ANN) with Bayesian Learning 
 
-In this analysis, because of the computationally intensive nature of training neural network models using Bayesian learning and simulation methodology such as the NUTS algorithm, we restrict analyses to only a small sample of the genetic information available in the dataset. We load a sample of n= 150 genetic information for analysis using BLNN.
+Because of the computationally intensive nature of training neural network models using Bayesian learning and simulation methodology such as the NUTS algorithm, we restrict analyses to only a small sample of the genetic information available in the dataset. We load a sample of n= 150 genetic information for analysis using BLNN.
 
 ```{r cache=TRUE, include=FALSE, eval=FALSE}
 # load series and platform data from GEO
@@ -519,9 +523,9 @@ OutTab %>% kable(format = "html", caption = "Artificial Neural Network Model Com
 
 # Discussion and Conclusion
 
-In this extension post, we have explored Bayesian learning in the context of artificial neural networks for modeling survival data, using micro array gene expression data for our case. In particular, we have presented the main ideas behind why artificial neural networks using Bayesian learning present an alternative to modeling survival outcomes given the complexity presented by censored data in survival modeling. The post has presented a simplistic introduction to neural networks, focusing predominantly on the feed-forward neural network which is later implemented on the application problem. We later shift to the neural network approach to modeling survival data where we discuss the Cox PH-based ANNs and how this model has been improved to learn hyper-parameters from a posterior distribution derived from prior information (evidence) and the data.
+In this extension post, we have explored Bayesian learning in the context of artificial neural networks for modeling survival data, using micro-array gene expression data. We have presented the main ideas behind why artificial neural networks using Bayesian learning present an alternative to modeling survival outcomes given the complexity presented by censored data in survival modeling. The post has presented a simplistic introduction to neural networks, focusing predominantly on the feed-forward neural network which is later implemented on the application problem. We later shift to the neural network approach to modeling survival data where we discuss the Cox PH-based ANNs and how this model has been improved to learn hyper-parameters from a posterior distribution derived from prior information (evidence) and the data.
 
-For brevity, and purposes of demonstration, we present the errors associated with each models trained in this post and show that using evidence results in a reduction in the total error (see Table \@ref(tab:bb)). However, a major issue that we encountered during the course of training these models was the high computational time it took to run the models, even with parallel processing. While the NUTs algorithm and the HMC algorithm employed by the BLNN package are promising, the sampling methods take an exorbitant amount of time to run, especially when the idea is to sample the values of the hyperparameters using historical data (or evidence). @sharaf2020blnn note that "Bayesian learning for ANN requires longer learning time when compared with conventional algorithms such as BFGS or gradient descent" something that holds true based on our implementation in this post.
+For brevity, and purposes of demonstration, we presented the errors associated with each model trained in this post and show that using evidence results in a reduction in the total error (see Table \@ref(tab:bb)). However, a major issue that we encountered during the course of training these models was the high computational time it took to run the models, even with parallel processing. While the NUTs algorithm and the HMC algorithm employed by the BLNN package are promising, the sampling methods take an exorbitant amount of time to run, especially when the idea is to sample the values of the hyperparameters using historical data (or evidence). @sharaf2020blnn note that "Bayesian learning for ANN requires longer learning time when compared with conventional algorithms such as BFGS or gradient descent" something that holds true based on our implementation in this post.
 
 # Python extension
 
