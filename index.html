@@ -303,7 +303,7 @@ pre code {
 
 
 <center>
-<strong>Reading Time: 18 minute(s)</strong>
+<strong style="color:#7a7a7a" >Reading Time: 18 minute(s)</strong>
 </center>
 <p><br></p>
 <figure>
@@ -372,7 +372,7 @@ S(t_k)=\prod_{l=1}^k (1-h(t_l))
 <p>where <span class="math inline">\(k\)</span> denotes the disjoint intervals and <span class="math inline">\(l\)</span> the number of time periods in which the event occurred.</p>
 <figure>
 <center>
-<img src="cox_net.png" style="width:100%">
+<img src="cox_net.png" style="width:70%; display: block; margin-left: auto; margin-right: auto;">
 <figcaption style="font-style: italic; text-align: center;" >
 Image Source: Sharaf et al. 2020
 </figcaption>
@@ -396,7 +396,7 @@ where:
 <span class="math inline">\(Z\)</span> and <span class="math inline">\(T\)</span> are the normalizing constants.</p>
 <p>The algorithm is summarized as below:</p>
 <div class="figure">
-<img src="blnn_algorithm.jpg" alt="" />
+<img src="blnn_algorithm.jpg" alt="" style="width:50%; display: block; margin-left: auto; margin-right: auto;"/>
 <p class="caption" style="font-style: italic; text-align: center;" >Image Source: Sharaf et al. 2020</p>
 </div>
 <p>Details about the implementation of this method can be found <a href="https://rdrr.io/github/BLNNdevs/BLNN/#vignettes">here</a>.</p>
@@ -466,7 +466,7 @@ where:
 <span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>             <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">&quot;Gene ID&quot;</span>, <span class="st">&quot;Gene Symbol&quot;</span>, <span class="st">&quot;logFC&quot;</span>, <span class="st">&quot;Average Expression&quot;</span>, <span class="st">&quot;Adjusted P-value&quot;</span>, <span class="st">&quot;B&quot;</span>)) <span class="sc">%&gt;%</span></span>
 <span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">full_width =</span> <span class="cn">FALSE</span>, <span class="at">latex_options =</span> <span class="fu">c</span>(<span class="st">&quot;HOLD_position&quot;</span>, <span class="st">&quot;stripped&quot;</span>, <span class="st">&quot;scale_down&quot;</span>), <span class="at">position =</span> <span class="st">&quot;left&quot;</span>)</span></code></pre></div>
 <table class="table" style="width: auto !important; ">
-<caption>
+<caption style="color:#7a7a7a; font-style: italic; text-align: center;">
 <span id="tab:table1">Table 5.1: </span>Top 10 up and down regulated genes in primary bladder cancer. The first 10 rows represent upregulated genes
 </caption>
 <thead>
@@ -889,7 +889,7 @@ CORIN
 <p>In Figure <a href="#fig:mean-difference">5.1</a> we visualize the differentially expressed genes in this sample using a mean-difference plot highlighting the genes depending on whether they were significantly up or down regulated.</p>
 <div class="figure"><span style="display:block;" id="fig:mean-difference"></span>
 <img src="index_files/figure-html/mean-difference-1.png" alt="A mean-difference plot showing the statistically significantly up and down regulated genes in primary bladder cancer relative to normal bladder cells."  />
-<p class="caption">
+<p class="caption" style="font-style: italic; text-align: center;">
 Figure 5.1: A mean-difference plot showing the statistically significantly up and down regulated genes in primary bladder cancer relative to normal bladder cells.
 </p>
 </div>
@@ -898,7 +898,7 @@ Figure 5.1: A mean-difference plot showing the statistically significantly up an
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(edo, <span class="at">showCategory=</span><span class="dv">10</span>, <span class="at">cex.names=</span><span class="dv">3</span>)</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:enrich"></span>
 <img src="index_files/figure-html/enrich-1.png" alt="Sample Enrichment analysis results using the Gene Ontology (GO) enrichment analysis."  />
-<p class="caption">
+<p class="caption" style="font-style: italic; text-align: center;">
 Figure 5.2: Sample Enrichment analysis results using the Gene Ontology (GO) enrichment analysis.
 </p>
 </div>
@@ -975,7 +975,7 @@ Figure 5.2: Sample Enrichment analysis results using the Gene Ontology (GO) enri
 <span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(OutTab, <span class="st">&quot;OutTab.csv&quot;</span>)</span>
 <span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>OutTab <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">format =</span> <span class="st">&quot;html&quot;</span>, <span class="at">caption =</span> <span class="st">&quot;Artificial Neural Network Model Comparisons&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">kable_styling</span>(<span class="at">full_width =</span> <span class="cn">FALSE</span>, <span class="at">latex_options =</span> <span class="fu">c</span>(<span class="st">&quot;HOLD_position&quot;</span>, <span class="st">&quot;stripped&quot;</span>, <span class="st">&quot;scale_down&quot;</span>), <span class="at">position =</span> <span class="st">&quot;left&quot;</span>)</span></code></pre></div>
 <table class="table" style="width: auto !important; ">
-<caption>
+<caption style="color:#7a7a7a; font-style: italic; text-align: center;">
 <span id="tab:bb">Table 6.1: </span>Artificial Neural Network Model Comparisons
 </caption>
 <tbody>
@@ -1024,7 +1024,7 @@ NNET
 </div>
 <div id="data-availability-and-analysis-scripts" class="section level1" number="9">
 <h1><span class="header-section-number" style="color:#4582ec">9</span> Data availability and analysis scripts</h1>
-<p>All data used in this extension post is available online. The cleaned data analysis files used in this post, including the <a href="https://github.com/okutse/bayesian-networks/blob/master/README.R">R Script</a> generated from the <code>.Rmd</code> file using <code>knitr::purl()</code> can be found at our Github repository.<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6, </sup></a><a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a></p>
+<p>All data used in this extension post is available online. The cleaned data analysis files used in this post, including the <a href="https://github.com/okutse/bayesian-networks/blob/master/README.R">R Script</a> generated from the <code>.Rmd</code> file using <code>knitr::purl()</code> can be found at our Github repository.<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a></p>
 </div>
 <div id="references" class="section level1" number="10">
 <h1><span class="header-section-number" style="color:#4582ec">10</span> References</h1>
@@ -1066,8 +1066,7 @@ Sharaf, Taysseer, Theren Williams, Abdallah Chehade, and Keshav Pokhrel. 2020. <
 <li id="fn3"><p> formula defined here<a href="#fnref3" class="footnote-back">↩︎</a></p></li>
 <li id="fn4"><p><a href="https://www.bioconductor.org/install/" class="uri">https://www.bioconductor.org/install/</a><a href="#fnref4" class="footnote-back">↩︎</a></p></li>
 <li id="fn5"><p><a href="https://rdrr.io/github/BLNNdevs/BLNN/man/BLNN_Train.html" class="uri">https://rdrr.io/github/BLNNdevs/BLNN/man/BLNN_Train.html</a><a href="#fnref5" class="footnote-back">↩︎</a></p></li>
-<li id="fn6"><p><a href="https://github.com/okutse/bayesian-networks" class="uri">https://github.com/okutse/bayesian-networks</a><a href="#fnref6" class="footnote-back">↩︎</a></p></li>
-<li id="fn7"><p><a href="https://github.com/nlee100/bayesian-neuralnetworks" class="uri">https://github.com/nlee100/bayesian-neuralnetworks</a><a href="#fnref7" class="footnote-back">↩︎</a></p></li>
+<li id="fn6"><p><a href="https://github.com/okutse/bayesian-networks" class="uri">https://github.com/okutse/bayesian-networks</a><a href="#fnref6" class="footnote-back">↩︎</a>, <a href="https://github.com/nlee100/bayesian-neuralnetworks" class="uri">https://github.com/nlee100/bayesian-neuralnetworks</a><a href="#fnref7" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
 
